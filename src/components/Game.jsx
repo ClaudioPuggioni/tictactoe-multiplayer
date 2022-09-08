@@ -20,16 +20,16 @@ let ran = false;
 function Game() {
   const dispatch = useDispatch();
 
-  let [addDisappear, setAddDisappear] = useState(null);
-  let [addAppear, setAddAppear] = useState(null);
+  const [addDisappear, setAddDisappear] = useState(null);
+  const [addAppear, setAddAppear] = useState(null);
 
-  let [currBoard, setCurrentBoard] = useState(startingBoard);
-  let [isXPlaying, setIsXPlaying] = useState(true);
-  let [gameStatus, setGameStatus] = useState("Starting...");
+  const [currBoard, setCurrentBoard] = useState(startingBoard);
+  const [isXPlaying, setIsXPlaying] = useState(true);
+  const [gameStatus, setGameStatus] = useState("Starting...");
   const [isMultiplayer, setIsMultiplayer] = useState(false);
   const { userId, room, playerSign } = useSelector((state) => state.cabinet);
 
-  let [history, setHistory] = useState(boardHistory);
+  const [history, setHistory] = useState(boardHistory);
 
   useEffect(() => {
     if (room && !ran) {
@@ -204,7 +204,7 @@ function Game() {
         <PreGame
           isMultiplayer={isMultiplayer}
           toggleMulti={toggleMulti}
-          startGame={startUp}
+          startUp={startUp}
           togglePlayerX={togglePlayerX}
           togglePlayerO={togglePlayerO}
           getRooms={getRooms}

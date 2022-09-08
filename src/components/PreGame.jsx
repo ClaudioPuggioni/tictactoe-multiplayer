@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { userInit } from "../features/dataSlice";
 import Rooms from "./Rooms";
 
-export default function PreGame({ isMultiplayer, startGame, toggleMulti, getRooms, addRoom, delRoom, togglePlayerX, togglePlayerO }) {
+export default function PreGame({ isMultiplayer, startUp, toggleMulti, getRooms, addRoom, delRoom, togglePlayerX, togglePlayerO }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function PreGame({ isMultiplayer, startGame, toggleMulti, getRoom
           <div className="preGameHeader">Select Game Mode:</div>
           <div className="preGameSelect">
             <div id="soloBtnBG">
-              <button className="selectBtn" id="soloBtn" onClick={() => startGame()}>
+              <button className="selectBtn" id="soloBtn" onClick={() => startUp({ playerX: null, playerY: null })}>
                 SINGLE-PC DUEL
               </button>
             </div>

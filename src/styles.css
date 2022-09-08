@@ -1,0 +1,393 @@
+@import url("https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/public/assets/baldMax.png");
+  background-repeat: none;
+  background-size: cover;
+  overflow: hidden;
+
+  font-family: "Finger Paint";
+}
+
+#body {
+  height: 100vh;
+  width: 100vw;
+}
+
+#pregame {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(10px);
+  z-index: 9001;
+
+  font-weight: 999;
+  text-shadow: 0px 0px 2px black;
+}
+
+#preGameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.preGameHeader {
+  font-size: 55px;
+}
+.preGameSelect {
+  display: flex;
+  gap: 30px;
+}
+
+.selectBtn,
+.selectBtnPlayer {
+  padding: 20px 25px;
+  width: 100%;
+
+  font-family: "Bebas Neue";
+  font-size: 35px;
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.4);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+
+  border: none;
+  border-radius: 10px;
+  z-index: 100;
+  /* pointer-events: none; */
+
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.selectPlayerContainer,
+.selectPlayerBody {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.selectBtnPlayer {
+  padding: 10px 15px;
+  font-size: 21px;
+}
+.selectBtn:hover {
+  transition: background-color ease-out 0.4s;
+}
+#selectX:hover {
+  background-color: rgb(0, 110, 255);
+}
+#selectO:hover {
+  background-color: rgb(255, 0, 81);
+}
+
+.selectBg {
+  background-color: white;
+  border-radius: 10px;
+}
+#soloBtnBG {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.selectBg:hover {
+  transition: background-color ease-out 0.3s;
+}
+
+#soloBtn:hover {
+  color: black;
+  font-weight: 600;
+}
+
+#multiBtn:hover {
+  color: black;
+  font-weight: 600;
+}
+#soloBtnBGBG {
+  position: relative;
+  background-color: #565656;
+  border-radius: 10px;
+}
+
+#soloBtnBG:hover {
+  background: linear-gradient(339deg, rgb(75, 75, 75) 49%, rgba(234, 234, 234, 1) 50%);
+}
+
+#multiBtnBG:hover {
+  background: repeating-conic-gradient(#f4ca86 0% 25%, white 0% 50%) 50% / 20px 20px;
+}
+
+#selectBgX:hover {
+  background-color: rgba(0, 110, 255, 0.2);
+}
+#selectBgY:hover {
+  background-color: rgba(255, 0, 81, 0.2);
+}
+
+#roomsContainer {
+  height: 500px;
+  width: 700px;
+  padding: 13px 18px;
+  background-color: rgba(245, 245, 245, 0.887);
+  border-radius: 3px;
+  border: 1px solid black;
+}
+#roomsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#roomsHeaderTxt {
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+}
+.delRoomBtn {
+  position: absolute;
+  padding: 1px 7.5px;
+  padding-bottom: 2.5px;
+
+  right: 20px;
+  top: -20px;
+  color: white;
+  font-size: 17px;
+  background-color: #cc0000;
+
+  border: none;
+  border-radius: 50%;
+}
+
+.delRoomBtn:hover {
+  background-color: #ff0033;
+}
+/* #refreshRoomBtn {
+  height: 25px;
+  margin-left: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  border: none;
+  box-shadow: 1px 1px 5px 1px rgba(68, 67, 67, 0.338);
+}
+#refreshRoomBtnIcon {
+  height: 25px;
+  width: 25px;
+  filter: invert(26%);
+} */
+#addRoomBtn {
+  padding: 2px 5px;
+  padding-bottom: 1px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+#addRoomBtn:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+#addRoomBtn:hover > #addRoomBtnIcon {
+  filter: invert(98%);
+}
+#addRoomBtnIcon {
+  width: 17px;
+  margin-right: 4px;
+  filter: invert(26%);
+}
+
+.roomsDivider {
+  height: 0.1px;
+  width: 100%;
+  margin: 8px 0;
+  background-color: rgba(0, 0, 0, 0.66);
+  box-shadow: 0px 0px 1px 1px rgba(164, 164, 164, 0.37);
+}
+
+#roomsList {
+  height: 433px;
+  overflow-y: auto;
+}
+
+#roomsList::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+#roomsList::-webkit-scrollbar-track {
+  background: #eeded3; /* color of the tracking area */
+  border-radius: 15px;
+  border: 0.01px solid rgba(0, 0, 0, 0.66);
+  box-shadow: 0px 0px 1px 1px rgba(164, 164, 164, 0.37);
+}
+
+#roomsList::-webkit-scrollbar-thumb {
+  background-color: rgba(57, 26, 9, 0.54); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid rgba(0, 0, 0, 0.38); /* creates padding around scroll thumb */
+}
+
+#container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  min-width: 1133px;
+
+  opacity: 0;
+}
+#gameName {
+  position: absolute;
+  top: 7%;
+  left: 15%;
+}
+#gameContainer {
+  display: flex;
+  height: 50%;
+}
+
+#board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+
+  opacity: 0;
+}
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+#currentPlayerHeader {
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  margin: 5px 8px;
+}
+#currentPlayerXO {
+  padding-left: 5px;
+  font-size: 20px;
+  font-weight: 999;
+}
+button.square {
+  height: 120px;
+  width: 120px;
+
+  font-size: 100px;
+  font-family: "Gochi Hand";
+  font-weight: 999;
+  text-shadow: 2px 2px 1px black;
+  text-align: center;
+
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  opacity: 100%;
+}
+#r0c0 {
+  border-right: 10px solid black;
+  border-bottom: 10px solid black;
+}
+#r0c1 {
+  border-bottom: 10px solid black;
+}
+#r0c2 {
+  border-left: 10px solid black;
+  border-bottom: 10px solid black;
+}
+#r1c0 {
+  border-right: 10px solid black;
+}
+#r1c2 {
+  border-left: 10px solid black;
+}
+#r2c0 {
+  border-top: 10px solid black;
+  border-right: 10px solid black;
+}
+#r2c1 {
+  border-top: 10px solid black;
+}
+#r2c2 {
+  border-top: 10px solid black;
+  border-left: 10px solid black;
+}
+
+#progress {
+  margin: 15px 0px;
+  font-size: 30px;
+}
+
+#historyColumn {
+  position: absolute;
+  right: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  width: 100px;
+}
+#historyHeader {
+  font-size: 22px;
+  margin: 6px 0px;
+  margin-top: 10px;
+}
+.historyButtons {
+  padding: 5px 8px;
+  margin: 3px 0px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: peachpuff;
+}
+
+.disappearANI {
+  animation: disappear 2s ease-in 0s 1 normal forwards;
+  pointer-events: none;
+}
+
+.appearANI {
+  animation: appear 2s ease-in 0s 1 normal forwards;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}

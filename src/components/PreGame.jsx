@@ -8,6 +8,7 @@ export default function PreGame({ isMultiplayer, startUp, toggleMulti, getRooms,
 
   useEffect(() => {
     dispatch(userInit());
+    // eslint-disable-next-line
   }, []);
 
   return (

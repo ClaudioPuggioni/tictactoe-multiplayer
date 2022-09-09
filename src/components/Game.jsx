@@ -1,14 +1,14 @@
 import Board from "./Board";
 import { useEffect, useState } from "react";
 import { Howl } from "howler";
-import WebSocket from "isomorphic-ws";
+// import WebSocket from "isomorphic-ws";
 // import WebSocket from "react-use-websocket";
 import { io } from "socket.io-client";
 import PreGame from "./PreGame";
 import { popRooms, selectedPlayers, setRoom } from "../features/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const socket = io.connect("http://127.0.0.1:8371");
+const socket = io.connect("http://tic-tac-toe-backend.vercel.app/");
 
 const Osound = new Howl({ src: "assets/Osound.mp3", volume: 0.57 });
 const Xsound = new Howl({ src: "assets/Xsound.mp3", volume: 0.57 });
@@ -36,6 +36,7 @@ function Game() {
       multiplayerPrep();
       ran = true;
     }
+    // eslint-disable-next-line
   }, [room]);
 
   function ticTacToeGameStatus(board, player) {
@@ -123,8 +124,7 @@ function Game() {
   let somefunction = (index) => {
     setCurrentBoard(history[index].board);
     setIsXPlaying(!history[index].currentPlayer);
-    history = history.slice(0, index + 1);
-    setHistory(history);
+    setHistory(history.slice(0, index + 1));
     if (gameStatus.slice(gameStatus.length - 3) === "won" || gameStatus === "Draw") setGameStatus("Game in Progress");
   };
 

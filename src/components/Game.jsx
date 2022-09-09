@@ -8,7 +8,7 @@ import PreGame from "./PreGame";
 import { popRooms, selectedPlayers, setRoom } from "../features/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const socket = io.connect("http://tic-tac-toe-backend.vercel.app/");
+const socket = io.connect("http://localhost:8371");
 
 const Osound = new Howl({ src: "assets/Osound.mp3", volume: 0.57 });
 const Xsound = new Howl({ src: "assets/Xsound.mp3", volume: 0.57 });

@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { Howl } from "howler";
 // import WebSocket from "isomorphic-ws";
 // import WebSocket from "react-use-websocket";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import PreGame from "./PreGame";
 import { popRooms, selectedPlayers, setRoom } from "../features/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-// const socket = io.connect("http://localhost:8371");
-const socket = io.connect("https://tictactoe.up.railway.app/");
+import socket from "../index";
 
 const Osound = new Howl({ src: "assets/Osound.mp3", volume: 0.57 });
 const Xsound = new Howl({ src: "assets/Xsound.mp3", volume: 0.57 });
@@ -63,10 +61,12 @@ function Game() {
     }
 
     if (hasPlayerWon(player)) {
+      setIsXPlaying("gameover");
       return player === "X" ? "Player X has won" : "Player O has won";
     } else if (board[0].includes(" ") || board[1].includes(" ") || board[2].includes(" ")) {
       return "Game in Progress";
     } else {
+      setIsXPlaying("gameover");
       return "Draw";
     }
   }
@@ -87,12 +87,9 @@ function Game() {
         setIsXPlaying(!isXPlaying);
 
         setGameStatus(ticTacToeGameStatus(copyBoard, isXPlaying ? "X" : "O"));
-
-        if (gameStatus.slice(gameStatus.length - 3) === "won" || gameStatus === "Draw") setIsXPlaying("gameover");
       }
     } else {
       let sign = isXPlaying ? "X" : "O";
-      // console.log(sign, playerSign);
       if (gameStatus.slice(gameStatus.length - 3) !== "won" && gameStatus !== "Draw" && currBoard[row][col] === " " && playerSign === sign) {
         socket.emit("writeSign", { row: row, col: col, roomNo: room, player: playerSign });
       }
@@ -100,12 +97,6 @@ function Game() {
   };
 
   socket.on("gameContinue", ({ roomNo, currentPlayer, board, gameStatus }) => {
-    // console.log("RETURNED-ON-MOVE:");
-    // console.log("roomNo:", roomNo);
-    // console.log("currentPlayer:", currentPlayer);
-    // console.log("gameStatus:", gameStatus);
-    // console.log("board:", board);
-
     currentPlayer === "O" ? Xsound.play() : Osound.play();
     if (room === roomNo) {
       setIsXPlaying(currentPlayer === "X" ? true : false);
@@ -215,27 +206,26 @@ function Game() {
       </div>
       <div id="container" className={addAppear}>
         <div id="gameName">
-          <h1>Disrespectful</h1> <h1>TicTacToe</h1>{" "}
-          {isMultiplayer ? <h4>Player's Sign: {<span style={{ fontSize: "27px" }}>{playerSign}</span>}</h4> : null}
+          <h1>Disrespectful</h1> <h1>TicTacToe</h1> {isMultiplayer ? <h4>Player's Sign: {<span style={{ fontSize: "27px" }}>{playerSign}</span>}</h4> : null}
         </div>
         <div id="gameContainer">
+          <div id="progress">Status: {gameStatus}</div>
           <div id="gameColumn">
             <div id="currentPlayerHeader">
-              {!isMultiplayer ? (
-                <div>
-                  Current Player:<div id="currentPlayerXO">{isXPlaying ? "X" : "O"}</div>
-                </div>
-              ) : (
-                <div style={{ opacity: isXPlaying === "gameover" ? "0%" : "100%" }}>
-                  Current Player:
-                  <div id="currentPlayerXO">
-                    {isXPlaying && playerSign === "X" ? "Your turn" : !isXPlaying && playerSign === "O" ? "Your turn" : "Opponent's turn"}
-                  </div>
-                </div>
-              )}
+              <div style={{ opacity: isXPlaying === "gameover" ? "0%" : "100%" }}>
+                {!isMultiplayer ? (
+                  <>
+                    Current Player:<div id="currentPlayerXO">{isXPlaying ? "X" : "O"}</div>
+                  </>
+                ) : (
+                  <>
+                    Current Player:
+                    <div id="currentPlayerXO">{isXPlaying && playerSign === "X" ? "Your turn" : !isXPlaying && playerSign === "O" ? "Your turn" : "Opponent's turn"}</div>
+                  </>
+                )}
+              </div>
             </div>
             <Board currentBoardPassed={currBoard} handleClick={handleClick} />
-            <div id="progress">Status: {gameStatus}</div>
           </div>
         </div>
         {!isMultiplayer ? (
